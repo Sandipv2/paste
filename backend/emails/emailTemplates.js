@@ -114,3 +114,132 @@ export const welcomeTemplate = `<!DOCTYPE html>
   </body>
 </html>
 `;
+
+export const passwordResetTemplate = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reset Your Password</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 20px;
+      background-color: #1e88e5;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #777;
+      text-align: center;
+    }
+    .brand {
+      font-size: 24px;
+      font-weight: bold;
+      color: #1e88e5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="brand">PASTE</div>
+    <h2>Reset your password</h2>
+    <p>Hello {name},</p>
+    <p>You recently requested to reset your password. Click the button below to set a new password:</p>
+
+    <a href="{resetLink}" class="btn">Reset Password</a>
+    <p>
+        <b>Available for next 10 minutes.</b>
+    </p>
+
+    <p>If you didn’t request this, you can safely ignore this email.</p>
+
+    <div class="footer">
+      &copy; {year} PASTE. All rights reserved.
+    </div>
+  </div>
+</body>
+</html>
+`;
+
+export const resetPasswordSuccessTemplate = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Password Reset Successful</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Roboto, sans-serif;
+      background: #f4f6fa;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    .brand {
+      font-size: 28px;
+      font-weight: bold;
+      color: #6a4df4;
+      margin-bottom: 10px;
+    }
+    .status-icon {
+      font-size: 48px;
+      color: #4caf50;
+      margin-bottom: 20px;
+    }
+    h2 {
+      color: #333;
+    }
+    p {
+      line-height: 1.6;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="brand">PASTE</div>
+    <div class="status-icon">✅</div>
+    <h2>Password Reset Successful</h2>
+    <p>Hello {name},</p>
+    <p>Your password has been successfully reset. You can now log in to your PASTE account using your new password.</p>
+    <p>If you did not perform this action, please contact us immediately.</p>
+
+    <div class="footer">
+      &copy; {year} PASTE. All rights reserved.
+    </div>
+  </div>
+</body>
+</html>
+`;

@@ -7,7 +7,7 @@ import {
   forgotPassword,
   checkAuth,
   resetPassword,
-} from "../controllers/auth.controllers.js";
+} from "../controllers/auth.controller.js";
 import { verifyToken } from "../middlewares/verifyToken.js";
 
 const authRouter = Router();

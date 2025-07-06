@@ -26,7 +26,13 @@ export const create = async (req, res) => {
         })
         await paste.save();
 
-        res.status(201).json({success: true, message: 'Paste is created'})
+        res.status(201).json({
+            success: true, 
+            message: 'Paste is created',
+            paste: {
+                ...paste._doc,
+            }
+        })
 
 
     } catch(err) {

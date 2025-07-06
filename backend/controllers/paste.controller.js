@@ -98,8 +98,8 @@ export const update = async (req, res) => {
         .json({ success: false, message: "Not authenticated" });
     }
 
-    if(!mongoose.Types.ObjectId.isValid(pasteId)) {
-        res.status(400).json({ success: false, message: "Paste not found" });
+    if (!mongoose.Types.ObjectId.isValid(pasteId)) {
+      res.status(400).json({ success: false, message: "Paste not found" });
     }
 
     if (!title || !content) {
@@ -125,6 +125,25 @@ export const update = async (req, res) => {
         ...paste._doc,
       },
     });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+};
+
+export const getPastes = async (req, res) => {
+  try {
+    const userId = req.userId;
+
+    if (!userId) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Not authenticated" });
+    }
+
+    const pastes = await Paste.find({user: userId});
+    
+    res.status(200).json({ success: true, data: pastes});
+
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });
   }

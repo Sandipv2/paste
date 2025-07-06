@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Paste } from "../models/paste.model.js";
 import { User } from "../models/user.model.js";
 
@@ -70,12 +71,10 @@ export const remove = async (req, res) => {
 
     // Checking ownership
     if (paste.user.toString() !== userId) {
-      return res
-        .status(403)
-        .json({
-          success: false,
-          message: "Not authorized to delete this paste",
-        });
+      return res.status(403).json({
+        success: false,
+        message: "Not authorized to delete this paste",
+      });
     }
 
     await Paste.findByIdAndDelete(pasteId);
@@ -83,6 +82,49 @@ export const remove = async (req, res) => {
     res
       .status(200)
       .json({ success: true, messsage: "Paste deleted successfully" });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+};
+
+export const update = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const { pasteId, title, content } = req.body;
+
+    if (!userId) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Not authenticated" });
+    }
+
+    if(!mongoose.Types.ObjectId.isValid(pasteId)) {
+        res.status(400).json({ success: false, message: "Paste not found" });
+    }
+
+    if (!title || !content) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Title and content are required" });
+    }
+
+    const paste = await Paste.findById(pasteId);
+
+    if (!paste) {
+      res.status(400).json({ success: false, message: "Paste not found" });
+    }
+
+    paste.title = title;
+    paste.content = content;
+    await paste.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Paste updated successfully",
+      paste: {
+        ...paste._doc,
+      },
+    });
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });
   }

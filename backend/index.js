@@ -14,7 +14,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use('/api/auth', authRouter);
-app.use('/api/paste', pasteRouter);
+app.use('/api/pastes', pasteRouter);
 
 app.listen(PORT, () => {
     connectDB();

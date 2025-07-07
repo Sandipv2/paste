@@ -4,9 +4,16 @@ import { verifyToken } from "../middlewares/verifyToken.js";
 
 const pasteRouter = Router();
 
-pasteRouter.post('/create', verifyToken, create);
-pasteRouter.post('/remove/:pasteId', verifyToken, remove);
-pasteRouter.post('/update', verifyToken, update);
-pasteRouter.get('/all', verifyToken, getPastes);
+pasteRouter.use(verifyToken);
+
+pasteRouter
+    .route('/')
+    .post(create)
+    .get(getPastes);
+
+pasteRouter
+    .route('/:pasteId')
+    .put(update)
+    .delete(remove);
 
 export default pasteRouter;

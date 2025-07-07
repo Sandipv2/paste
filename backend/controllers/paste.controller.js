@@ -90,7 +90,8 @@ export const remove = async (req, res) => {
 export const update = async (req, res) => {
   try {
     const userId = req.userId;
-    const { pasteId, title, content } = req.body;
+    const { title, content } = req.body;
+    const { pasteId } = req.params;
 
     if (!userId) {
       return res

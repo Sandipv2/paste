@@ -1,5 +1,3 @@
-import { FaCopy, FaCopyright } from "react-icons/fa";
-import { CiHeart } from "react-icons/ci";
 
 function Footer() {
     const year = new Date().getFullYear();

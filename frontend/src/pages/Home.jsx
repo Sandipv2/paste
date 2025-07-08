@@ -10,7 +10,7 @@ function Home() {
 
         <div>
           <Link to='/register'>
-            <button className='cursor-pointer border-2 w-[130px] border-cyan-500 rounded-full font-bold py-1 mt-5 hover:bg-cyan-500 hover:text-black hover:scale-95 duration-300'>
+            <button className='cursor-pointer border-2 w-[130px] border-cyan-500 rounded-full font-bold py-1 mt-5 hover:bg-cyan-500 hover:text-black hover:scale-95 active:bg-cyan-500 active:text-black active:scale-95 duration-300'>
               Sign Up
             </button>
           </Link>

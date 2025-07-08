@@ -9,11 +9,11 @@ function Navbar() {
             </Link>
 
             <div>
-                <Link to='/register'>
+                <Link to='/login'>
                     <button
-                        className="flex items-center gap-2 ease-linear duration-300 cursor-pointer border-2 border-cyan-500 rounded-full px-3 py-[2px] font-bol transition-all hover:bg-cyan-500 hover:text-black hover:scale-95 group"
+                        className="w-[120px] flex items-center justify-center gap-2 ease-linear duration-300 cursor-pointer border-2 border-cyan-500 rounded-full px-3 py-[2px] font-bol transition-all hover:bg-cyan-500 hover:text-black hover:scale-95 group"
                     >
-                        <p>Log In</p>
+                        <p>Sign In</p>
                         <FaArrowRight className="group-hover:translate-x-[-5px] duration-300"/>
                     </button>
                 </Link>

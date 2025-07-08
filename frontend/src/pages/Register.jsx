@@ -5,7 +5,7 @@ import { MdOutlineMail } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
 import { Link } from 'react-router-dom';
 
-function Login() {
+function Register() {
   const {
     register,
     handleSubmit,
@@ -89,11 +89,15 @@ function Login() {
         >Register</button>
 
         <p className='mt-2 mb-3'>
-          Already have an account? <Link to='login' className='text-blue-600 underline'>Login here</Link>
+          Already have an account? <Link to='/login' className='text-blue-600 underline'>Sign in here</Link>
         </p>
+
+        <Link to='/'>
+          <p className='text-blue-600 underline'>Go to home</p>
+        </Link>
       </form>
     </div>
   )
 }
 
-export default Login    
+export default Register    

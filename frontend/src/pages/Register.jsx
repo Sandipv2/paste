@@ -40,7 +40,7 @@ function Register() {
         <div className='w-full'>
           <div className="flex items-center gap-2 border-2 border-white rounded-full px-3 py-2 text-white">
             <MdOutlineMail />
-            <input type="text" className="outline-none w-full bg-transparent" placeholder="Email" autoComplete
+            <input type="text" className="outline-none w-full bg-transparent" placeholder="Email"
               {...register('email', {
                 required: 'Field is required',
                 minLength: { value: 8, message: 'Minimum length must be 8' },

@@ -10,7 +10,6 @@ export const useAuthStore = create((set) => ({
   user: null,
   isLoggedIn: false,
   isLoading: false,
-  isAuthenticated: false,
 
   signup: async (name, email, password) => {
     set({ isLoading: true });
@@ -20,11 +19,10 @@ export const useAuthStore = create((set) => ({
         email,
         password,
       });
-      set({ 
-        user: data.user, 
-        isAuthenticated: true, 
+      set({
+        user: data.user,
         isLoggedIn: true,
-        isLoading: false 
+        isLoading: false,
       });
       return data;
     } catch (err) {
@@ -45,16 +43,26 @@ export const useAuthStore = create((set) => ({
       set({
         isLoading: false,
         user: data.user,
-        isAuthenticated: true,
         isLoggedIn: true,
       });
       return data;
     } catch (err) {
-      set({ 
-        isLoading: false, 
-        isAuthenticated: false, 
-        isLoggedIn: false 
+      set({
+        isLoading: false,
+        isLoggedIn: false,
       });
+      toast.error(err.response?.data?.message || err.message);
+      throw err;
+    }
+  },
+
+  logout: async () => {
+    set({ isLoading: true });
+    try {
+      const { data } = await axios.post(`${backendUrl}/logout`);
+      set({ isLoading: false, user: null, isLoggedIn: false });
+      return data;
+    } catch (err) {
       toast.error(err.response?.data?.message || err.message);
       throw err;
     }
@@ -64,19 +72,17 @@ export const useAuthStore = create((set) => ({
     set({ isLoading: true });
     try {
       const { data } = await axios.get(`${backendUrl}/check-auth`);
-      set({ 
-        isLoading: false, 
-        user: data.user, 
-        isAuthenticated: true, 
-        isLoggedIn: true 
+      set({
+        isLoading: false,
+        user: data.user,
+        isLoggedIn: true,
       });
       return data;
     } catch (err) {
-      set({ 
-        isLoading: false, 
-        user: null, 
-        isAuthenticated: false, 
-        isLoggedIn: false 
+      set({
+        isLoading: false,
+        user: null,
+        isLoggedIn: false,
       });
       return null;
     }

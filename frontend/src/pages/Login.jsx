@@ -4,6 +4,10 @@ import { MdOutlineMail } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
 import { Link } from 'react-router-dom';
 
+import { useAuthStore } from '../store/authStore';
+
+import { useNavigate } from 'react-router-dom';
+
 function Login() {
     const {
         register,
@@ -11,8 +15,14 @@ function Login() {
         formState: { errors },
     } = useForm();
 
-    function onSubmit(e) {
-        e.preventDefault();
+    const { login, isLoading } = useAuthStore();
+
+    async function onSubmit(e) {
+        try {
+            await login(e.email, e.password)
+        } catch (err) {
+            console.log('Login err: ', err);
+        }
     }
 
     return (
@@ -43,11 +53,11 @@ function Login() {
                         <input type="password" className="outline-none w-full bg-transparent" placeholder="Password" autoComplete='off'
                             {...register('password', {
                                 required: 'Field is required',
-                                minLength: { value: 6, message: 'Minimum length is 6' },
-                                pattern: {
-                                    value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$&*])(?=.*[0-9]).{6,}$/,
-                                    message: 'Must include uppercase, lowercase, number, and special char',
-                                },
+                                // minLength: { value: 6, message: 'Minimum length is 6' },
+                                // pattern: {
+                                //     value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$&*])(?=.*[0-9]).{6,}$/,
+                                //     message: 'Must include uppercase, lowercase, number, and special char',
+                                // },
                             })}
                         />
                     </div>
@@ -59,8 +69,9 @@ function Login() {
                 </Link>
 
                 <button type="submit"
+                    disabled={isLoading}
                     className="bg-cyan-500 px-3 py-2 font-bold rounded-full cursor-pointer w-full hover:scale-95 duration-200 hover:bg-cyan-600 mt-7"
-                >Sign in</button>
+                >{isLoading ? 'Signing in...' : 'Sign in'}</button>
 
                 <p className='mt-2 mb-3'>
                     Don't have an account? <Link to='/register' className='text-blue-600 underline'>Sign up here</Link>

@@ -4,7 +4,6 @@ import { MdOutlineMail } from "react-icons/md";
 import { Link } from 'react-router-dom';
 
 import { useAuthStore } from '../store/authStore';
-import { useNavigate } from 'react-router-dom';
 
 function ForgotPassword() {
     const {
@@ -14,8 +13,6 @@ function ForgotPassword() {
     } = useForm();
 
     const {forgotPassword} = useAuthStore();
-
-    const navigate = useNavigate();
 
     async function onSubmit(e) {
         try {

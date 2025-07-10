@@ -21,7 +21,7 @@ function Dashboard() {
     <div className='min-h-screen px-5 md:px-0 bg-gradient-to-br from-black to-cyan-800 flex justify-center text-white'>
       <div className='my-25 min-w-full md:min-w-1/2 md:max-w-1/2'>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex border justify-between rounded-md bg-black overflow-hidden">
+          <div className="flex border border-slate-500 justify-between rounded-md bg-black overflow-hidden">
             <input
               type="text"
               className="outline-none p-2 w-full"
@@ -38,7 +38,7 @@ function Dashboard() {
 
           <input className="hidden" {...register('pasteId')} />
 
-          <div className="bg-black border rounded-md p-2 mt-3">
+          <div className="bg-black border border-slate-500 rounded-md p-2 mt-3">
             <textarea
               className="w-full outline-none"
               placeholder="Description"
@@ -53,7 +53,7 @@ function Dashboard() {
             <input
               type="text"
               placeholder="Search paste"
-              className="bg-black w-full rounded-md p-2 outline-none"
+              className="bg-black w-full rounded-md p-2 outline-none border border-slate-500"
             />
           </div>
 

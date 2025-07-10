@@ -3,6 +3,9 @@ import { useForm } from 'react-hook-form';
 import { MdOutlineMail } from "react-icons/md";
 import { Link } from 'react-router-dom';
 
+import { useAuthStore } from '../store/authStore';
+import { useNavigate } from 'react-router-dom';
+
 function ForgotPassword() {
     const {
         register,
@@ -10,8 +13,16 @@ function ForgotPassword() {
         formState: { errors },
     } = useForm();
 
-    function onSubmit(e) {
-        e.preventDefault();
+    const {forgotPassword} = useAuthStore();
+
+    const navigate = useNavigate();
+
+    async function onSubmit(e) {
+        try {
+            await forgotPassword(e.email);
+        } catch(err) {
+            console.log(err.response?.data?.message || err.message)
+        }
     }
 
     return (

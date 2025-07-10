@@ -165,7 +165,7 @@ export const forgotPassword = async (req, res) => {
     if (!user) {
       return res
         .status(400)
-        .json({ success: false, message: "Email already exists" });
+        .json({ success: false, message: "Email does not exists" });
     }
 
     const resetToken = crypto.randomBytes(20).toString("hex");

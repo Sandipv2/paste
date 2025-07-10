@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterProvider } from 'react-router-dom'
+
 import Layout from './Layout'
 import Home from './pages/Home'
 import Register from './pages/Register'
@@ -8,7 +9,10 @@ import Login from './pages/Login'
 import ForgotPassword from './pages/ForgotPassword'
 import VerifyEmail from './pages/VerifyEmail'
 import Dashboard from './pages/Dashboard'
+import ResetPassword from './pages/ResetPassword'
+
 import { Toaster } from 'react-hot-toast'
+
 import RedirectLoggedInUser from './components/RedirectLoggedInUser'
 import ProtectedRoute from './components/ProtectedRoute'
 
@@ -45,6 +49,14 @@ const router = createBrowserRouter(
         element={
           <RedirectLoggedInUser>
             <ForgotPassword />
+          </RedirectLoggedInUser>
+        }
+      />
+      <Route
+        path='/reset-password/:token'
+        element={
+          <RedirectLoggedInUser>
+            <ResetPassword />
           </RedirectLoggedInUser>
         }
       />

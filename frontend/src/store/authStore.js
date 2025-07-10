@@ -79,6 +79,42 @@ export const useAuthStore = create((set) => ({
       set({ isLoading: false, user: null, isLoggedIn: false });
       return data;
     } catch (err) {
+      set({ isLoading: false });
+      toast.error(err.response?.data?.message || err.message);
+      throw err;
+    }
+  },
+
+  forgotPassword: async (email) => {
+    set({ isLoading: true });
+    try {
+      const { data } = await axios.post(`${backendUrl}/forgot-password`, {
+        email,
+      });
+
+      set({ isLoading: false });
+      toast.success("Reset link sent to your mail");
+      return data;
+    } catch (err) {
+      set({ isLoading: false });
+      toast.error(err.response?.data?.message || err.message);
+      throw err;
+    }
+  },
+
+  resetPassword: async (token, password) => {
+    set({ isLoading: true });
+    try {
+      const { data } = await axios.post(
+        `${backendUrl}/reset-password/${token}`,
+        { password }
+      );
+
+      set({ isLoading: false });
+      toast.success("Password reset success");
+      return data;
+    } catch (err) {
+      set({ isLoading: false });
       toast.error(err.response?.data?.message || err.message);
       throw err;
     }

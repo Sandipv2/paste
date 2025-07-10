@@ -3,7 +3,9 @@ import { useForm } from 'react-hook-form';
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineMail } from "react-icons/md";
 import { TbLockPassword } from "react-icons/tb";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { useAuthStore } from '../store/authStore';
 
 function Register() {
   const {
@@ -13,8 +15,16 @@ function Register() {
     formState: { errors },
   } = useForm();
 
-  function onSubmit(e) {
-    e.preventDefault();
+  const {signup} = useAuthStore();
+  const navigate = useNavigate();
+
+  async function onSubmit(e) {
+    try {
+      await signup(e.name, e.email, e.password);
+      navigate('/verify-email');
+    } catch(err) {  
+      console.log(err.response.data.message || err.message);
+    }
   }
 
   const password = watch('password');

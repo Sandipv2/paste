@@ -28,7 +28,7 @@ function Navbar() {
             </Link>
 
             <div>
-                {isLoggedIn
+                {isLoggedIn && user.isAccountVerified
                     ?
                     <div onClick={() => setIsProfileClicked(!isProfileClicked)} className="relative w-10 h-10 bg-cyan-500 rounded-full text-center content-center">
                         <p className="font-bold text-xl text-black cursor-pointer">{user.name[0].toUpperCase()}</p>

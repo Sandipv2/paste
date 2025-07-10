@@ -24,6 +24,22 @@ export const useAuthStore = create((set) => ({
         isLoggedIn: true,
         isLoading: false,
       });
+      toast.success("OTP sent to your mail");
+      return data;
+    } catch (err) {
+      set({ isLoading: false });
+      toast.error(err.response?.data?.message || err.message);
+      throw err;
+    }
+  },
+
+  verifyEmail: async (otp) => {
+    set({ isLoading: true });
+    try {
+      const { data } = await axios.post(`${backendUrl}/verify-email`, { otp });
+      set({ user: data.user, isLoggedIn: true, isLoading: false });
+
+      toast.success("Email verified");
       return data;
     } catch (err) {
       set({ isLoading: false });

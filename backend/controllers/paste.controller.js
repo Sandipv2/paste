@@ -36,9 +36,7 @@ export const create = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "Paste is created",
-      paste: {
-        ...paste._doc,
-      },
+      paste: paste._doc,
     });
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });
@@ -141,10 +139,36 @@ export const getPastes = async (req, res) => {
         .json({ success: false, message: "Not authenticated" });
     }
 
-    const pastes = await Paste.find({user: userId});
-    
-    res.status(200).json({ success: true, data: pastes});
+    const pastes = await Paste.find({ user: userId });
 
+    res.status(200).json({ success: true, data: pastes });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+};
+
+export const getOnePaste = async (req, res) => {
+  try {
+    const { pasteId } = req.params;
+
+    if (!pasteId) {
+      return res
+        .status(400)
+        .json({ success: false, message: "pasteId missing" });
+    }
+
+    const paste = await Paste.findById(pasteId);
+    if (!paste) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Paste not found" });
+    }
+
+    const user = await User.findById(paste.user).select("name");
+
+    res
+      .status(200)
+      .json({ success: true, data: { ...paste._doc, name: user.name } });
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });
   }

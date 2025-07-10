@@ -10,6 +10,7 @@ import ForgotPassword from './pages/ForgotPassword'
 import VerifyEmail from './pages/VerifyEmail'
 import Dashboard from './pages/Dashboard'
 import ResetPassword from './pages/ResetPassword'
+import ViewPaste from './pages/ViewPaste'
 
 import { Toaster } from 'react-hot-toast'
 
@@ -66,6 +67,12 @@ const router = createBrowserRouter(
           <ProtectedRoute>
             <Dashboard />
           </ProtectedRoute>
+        }
+      />
+      <Route
+        path='/paste/:pasteId'
+        element={
+            <ViewPaste />
         }
       />
     </Route>

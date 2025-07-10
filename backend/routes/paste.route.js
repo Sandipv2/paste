@@ -1,8 +1,11 @@
 import { Router } from "express";
-import { create, getPastes, remove, update } from "../controllers/paste.controller.js";
+import { create, getOnePaste, getPastes, remove, update } from "../controllers/paste.controller.js";
 import { verifyToken } from "../middlewares/verifyToken.js";
 
 const pasteRouter = Router();
+
+
+pasteRouter.get('/:pasteId', getOnePaste);
 
 pasteRouter.use(verifyToken);
 

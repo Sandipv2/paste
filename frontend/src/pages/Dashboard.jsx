@@ -45,6 +45,10 @@ function Dashboard() {
     toast.success('Copied!');
   }
 
+  function handleShare(pasteId) {
+    navigator.clipboard.writeText(`${import.meta.env.VITE_FRONTEND_URL}/paste/${pasteId}`);
+    toast.success('Share link copied!');
+  }
 
   return (
     <div className='min-h-screen px-5 md:px-0 bg-gradient-to-br from-black to-cyan-800 flex justify-center text-white'>
@@ -116,18 +120,23 @@ function Dashboard() {
 
                     <div className="flex flex-col justify-between mt-4 md:mt-0 min-w-max md:items-end">
                       <div className="flex gap-4 justify-end flex-wrap">
-                        <button 
-                        className="cursor-pointer hover:text-cyan-400 transition-colors"
-                        onClick={() => handleCopy(item.content)}
+                        <button
+                          className="cursor-pointer hover:text-cyan-400 transition-colors"
+                          onClick={() => handleCopy(item.content)}
                         >
                           <FaRegCopy size={18} />
                         </button>
+
                         <button className="cursor-pointer hover:text-cyan-400 transition-colors">
-                          <GrView size={18} />
+                          <Link to={`/paste/${item._id}`}>
+                            <GrView size={18} />
+                          </Link>
                         </button>
+
                         <button className="cursor-pointer hover:text-cyan-400 transition-colors">
                           <FaEdit size={18} />
                         </button>
+
                         <button
                           disabled={isLoading}
                           onClick={() => handlePasteDelete(item._id)}
@@ -135,7 +144,11 @@ function Dashboard() {
                         >
                           <MdDeleteOutline size={18} />
                         </button>
-                        <button className="cursor-pointer hover:text-cyan-400 transition-colors">
+
+                        <button
+                          onClick={() => handleShare(item._id)}
+                          className="cursor-pointer hover:text-cyan-400 transition-colors"
+                        >
                           <FiShare2 size={18} />
                         </button>
                       </div>

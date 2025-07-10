@@ -63,9 +63,9 @@ const router = createBrowserRouter(
       <Route
         path='/dashboard'
         element={
-          // <ProtectedRoute>
+          <ProtectedRoute>
             <Dashboard />
-          // </ProtectedRoute>
+          </ProtectedRoute>
         }
       />
     </Route>

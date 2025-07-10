@@ -13,10 +13,10 @@ export const create = async (req, res) => {
         .json({ success: false, message: "Not authenticated" });
     }
 
-    if (!title || !content) {
+    if (!title) {
       return res
         .status(400)
-        .json({ success: false, message: "Title and content are required" });
+        .json({ success: false, message: "Title is required" });
     }
 
     const user = await User.findById(userId);

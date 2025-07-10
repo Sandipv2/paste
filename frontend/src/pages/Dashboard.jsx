@@ -5,7 +5,7 @@ import { FiShare2 } from "react-icons/fi";
 
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { usePasteStore } from "../store/pasteStore";
 
@@ -16,7 +16,7 @@ function Dashboard() {
     reset
   } = useForm();
 
-
+  const [search, setSearch] = useState('');
   const { create, getAllPastes, pastes } = usePasteStore();
 
   async function onSubmit(e) {
@@ -33,7 +33,7 @@ function Dashboard() {
   useEffect(() => {
     getAllPastes();
   }, [])
-  
+
 
   return (
     <div className='min-h-screen px-5 md:px-0 bg-gradient-to-br from-black to-cyan-800 flex justify-center text-white'>
@@ -70,6 +70,8 @@ function Dashboard() {
           <div>
             <input
               type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               placeholder="Search paste"
               className="bg-black w-full rounded-md p-2 outline-none border border-slate-500"
             />
@@ -79,50 +81,54 @@ function Dashboard() {
             <h1 className="font-bold text-xl">All Pastes</h1>
           </div>
 
-          {/* Rendering the pastes */}
+          {/*========== Rendering the pastes ============*/}
+
           <div className="mt-2 flex flex-col gap-4">
             {pastes.length === 0
-             ?
-             <p className="text-center">No paste created yet</p>
-             :
-             pastes.map((item) => (
-              <div key={item._id} className="bg-black p-3 flex flex-wrap md:flex-nowrap justify-between rounded-md hover:bg-gray-900 transition-colors cursor-pointer">
-                <div className="w-full md:w-[70%] pr-4">
-                  <h1 className="font-bold text-lg truncate">
-                    {item.title}
-                  </h1>
-                  <p className="text-slate-300 line-clamp-2 break-words mt-1">
-                    {item.content}
-                  </p>
-                </div>
+              ?
+              <p className="text-center">No paste created yet</p>
+              :
+              pastes
+                .filter(e => e.title.toLowerCase().includes(search.toLowerCase()))
+                .reverse()
+                .map((item) => (
+                  <div key={item._id} className="bg-black p-3 flex flex-wrap md:flex-nowrap justify-between rounded-md hover:bg-gray-900 transition-colors cursor-pointer">
+                    <div className="w-full md:w-[70%] pr-4">
+                      <h1 className="font-bold text-lg truncate">
+                        {item.title}
+                      </h1>
+                      <p className="text-slate-300 line-clamp-2 break-words mt-1">
+                        {item.content}
+                      </p>
+                    </div>
 
-                <div className="flex flex-col justify-between mt-4 md:mt-0 min-w-max md:items-end">
-                  <div className="flex gap-4 justify-end flex-wrap">
-                    <button className="cursor-pointer hover:text-cyan-400 transition-colors">
-                      <FaRegCopy size={18} />
-                    </button>
-                    <button className="cursor-pointer hover:text-cyan-400 transition-colors">
-                      <GrView size={18} />
-                    </button>
-                    <button className="cursor-pointer hover:text-cyan-400 transition-colors">
-                      <FaEdit size={18} />
-                    </button>
-                    <button className="cursor-pointer hover:text-cyan-400 transition-colors">
-                      <MdDeleteOutline size={18} />
-                    </button>
-                    <button className="cursor-pointer hover:text-cyan-400 transition-colors">
-                      <FiShare2 size={18} />
-                    </button>
-                  </div>
+                    <div className="flex flex-col justify-between mt-4 md:mt-0 min-w-max md:items-end">
+                      <div className="flex gap-4 justify-end flex-wrap">
+                        <button className="cursor-pointer hover:text-cyan-400 transition-colors">
+                          <FaRegCopy size={18} />
+                        </button>
+                        <button className="cursor-pointer hover:text-cyan-400 transition-colors">
+                          <GrView size={18} />
+                        </button>
+                        <button className="cursor-pointer hover:text-cyan-400 transition-colors">
+                          <FaEdit size={18} />
+                        </button>
+                        <button className="cursor-pointer hover:text-cyan-400 transition-colors">
+                          <MdDeleteOutline size={18} />
+                        </button>
+                        <button className="cursor-pointer hover:text-cyan-400 transition-colors">
+                          <FiShare2 size={18} />
+                        </button>
+                      </div>
 
-                  <div className="text-left mt-3">
-                    <p className="text-slate-400 text-sm">
-                      {new Date(item.createdAt).toDateString()}
-                    </p>
+                      <div className="text-left mt-3">
+                        <p className="text-slate-400 text-sm">
+                          {new Date(item.createdAt).toDateString()}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                ))}
           </div>
         </div>
       </div>

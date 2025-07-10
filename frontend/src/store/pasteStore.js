@@ -33,4 +33,16 @@ export const usePasteStore = create((set) => ({
       throw err;
     }
   },
+
+  remove: async (pasteId) => {
+    set({ isLoading: true });
+    try {
+      const { data } = await axios.delete(`${backendUrl}/${pasteId}`);
+      set({ isLoading: false });
+    } catch (err) {
+      set({ isLoading: false });
+      toast.error(err.response.data.message || err.message);
+      throw err;
+    }
+  }
 }));

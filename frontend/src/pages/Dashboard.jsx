@@ -6,6 +6,7 @@ import { FiShare2 } from "react-icons/fi";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import toast from 'react-hot-toast';
 
 import { usePasteStore } from "../store/pasteStore";
 
@@ -17,7 +18,7 @@ function Dashboard() {
   } = useForm();
 
   const [search, setSearch] = useState('');
-  const { create, getAllPastes, pastes } = usePasteStore();
+  const { create, getAllPastes, pastes, remove, isLoading } = usePasteStore();
 
   async function onSubmit(e) {
     try {
@@ -34,6 +35,16 @@ function Dashboard() {
     getAllPastes();
   }, [])
 
+  async function handlePasteDelete(pasteId) {
+    await remove(pasteId);
+    getAllPastes();
+  }
+
+  function handleCopy(text) {
+    navigator.clipboard.writeText(text);
+    toast.success('Copied!');
+  }
+
 
   return (
     <div className='min-h-screen px-5 md:px-0 bg-gradient-to-br from-black to-cyan-800 flex justify-center text-white'>
@@ -48,6 +59,7 @@ function Dashboard() {
             />
             <button
               type='submit'
+              disabled={isLoading}
               className="bg-cyan-500 text-center px-2 content-center cursor-pointer"
             >
               <FaPlus size={25} />
@@ -92,7 +104,7 @@ function Dashboard() {
                 .filter(e => e.title.toLowerCase().includes(search.toLowerCase()))
                 .reverse()
                 .map((item) => (
-                  <div key={item._id} className="bg-black p-3 flex flex-wrap md:flex-nowrap justify-between rounded-md hover:bg-gray-900 transition-colors cursor-pointer">
+                  <div key={item._id} className='bg-black p-3 flex flex-wrap md:flex-nowrap justify-between rounded-md hover:bg-gray-900 transition-colors cursor-pointer'>
                     <div className="w-full md:w-[70%] pr-4">
                       <h1 className="font-bold text-lg truncate">
                         {item.title}
@@ -104,7 +116,10 @@ function Dashboard() {
 
                     <div className="flex flex-col justify-between mt-4 md:mt-0 min-w-max md:items-end">
                       <div className="flex gap-4 justify-end flex-wrap">
-                        <button className="cursor-pointer hover:text-cyan-400 transition-colors">
+                        <button 
+                        className="cursor-pointer hover:text-cyan-400 transition-colors"
+                        onClick={() => handleCopy(item.content)}
+                        >
                           <FaRegCopy size={18} />
                         </button>
                         <button className="cursor-pointer hover:text-cyan-400 transition-colors">
@@ -113,7 +128,11 @@ function Dashboard() {
                         <button className="cursor-pointer hover:text-cyan-400 transition-colors">
                           <FaEdit size={18} />
                         </button>
-                        <button className="cursor-pointer hover:text-cyan-400 transition-colors">
+                        <button
+                          disabled={isLoading}
+                          onClick={() => handlePasteDelete(item._id)}
+                          className="cursor-pointer hover:text-cyan-400 transition-colors"
+                        >
                           <MdDeleteOutline size={18} />
                         </button>
                         <button className="cursor-pointer hover:text-cyan-400 transition-colors">

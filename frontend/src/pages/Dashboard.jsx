@@ -16,15 +16,19 @@ function Dashboard() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [pasteId, setPasteId] = useState('');
-  const [deleting, setDeleting] = useState(false);
 
-  const { create, getAllPastes, pastes, remove, isLoading, isCreating, isDeleting } = usePasteStore();
+  const { create, getAllPastes, pastes, remove, update, isCreating, isDeleting } = usePasteStore();
 
   async function handleSubmit(e) {
     e.preventDefault();
 
+
     try {
-      await create(title, content);
+      if (pasteId) {
+        await update(pasteId, title, content);
+      } else {
+        await create(title, content);
+      }
       getAllPastes();
     } catch (err) {
       console.log(err.response.data.message || err.message)
@@ -32,6 +36,7 @@ function Dashboard() {
 
     setTitle('');
     setContent('');
+    setPasteId('');
   }
 
   useEffect(() => {
@@ -39,9 +44,7 @@ function Dashboard() {
   }, [])
 
   async function handlePasteDelete(pasteId) {
-    setDeleting(!deleting);
     await remove(pasteId);
-    setDeleting(!deleting);
     getAllPastes();
   }
 
@@ -53,6 +56,12 @@ function Dashboard() {
   function handleShare(pasteId) {
     navigator.clipboard.writeText(`${import.meta.env.VITE_FRONTEND_URL}/paste/${pasteId}`);
     toast.success('Share link copied!');
+  }
+
+  function handleUpdate(pasteId, title, content) {
+    setPasteId(pasteId);
+    setTitle(title);
+    setContent(content);
   }
 
   return (
@@ -74,7 +83,14 @@ function Dashboard() {
               disabled={isCreating}
               className="bg-cyan-500 text-center px-2 content-center cursor-pointer duration-200 hover:bg-cyan-600 group"
             >
-              {isCreating ? <PiSpinner size={25} className="animate-spin" /> : <FaPlus size={25} className="group-active:scale-90" />}
+              {isCreating
+                ?
+                <PiSpinner size={25} className="animate-spin" />
+                : (
+                  pasteId ? <FaEdit size={25} className="group-active:scale-90" /> :
+                    <FaPlus size={25} className="group-active:scale-90" />
+                )
+              }
             </button>
           </div>
 
@@ -148,7 +164,10 @@ function Dashboard() {
                           </Link>
                         </button>
 
-                        <button className="cursor-pointer hover:text-cyan-400 transition-colors">
+                        <button
+                          className="cursor-pointer hover:text-cyan-400 transition-colors"
+                          onClick={() => handleUpdate(item._id, item.title, item.content)}
+                        >
                           <FaEdit size={18} />
                         </button>
 

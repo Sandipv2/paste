@@ -101,10 +101,10 @@ export const update = async (req, res) => {
       res.status(400).json({ success: false, message: "Paste not found" });
     }
 
-    if (!title || !content) {
+    if (!title) {
       return res
         .status(400)
-        .json({ success: false, message: "Title and content are required" });
+        .json({ success: false, message: "Title is required" });
     }
 
     const paste = await Paste.findById(pasteId);

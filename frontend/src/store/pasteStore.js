@@ -15,7 +15,7 @@ export const usePasteStore = create((set) => ({
   create: async (title, content) => {
     set({ isCreating: true });
     try {
-      const {data} = await axios.post(`${backendUrl}/`, { title, content });
+      const { data } = await axios.post(`${backendUrl}/`, { title, content });
       set({ isCreating: false });
       return data;
     } catch (err) {
@@ -51,6 +51,23 @@ export const usePasteStore = create((set) => ({
     }
   },
 
+  update: async (pasteId, title, content) => {
+    set({ isCreating: true });
+    try {
+      const { data } = await axios.put(`${backendUrl}/${pasteId}`, {
+        title,
+        content,
+      });
+      set({ isCreating: false });
+      return data;
+      
+    } catch (err) {
+      set({ isCreating: false });
+      toast.error(err.response.data.message || err.message);
+      throw err;
+    }
+  },
+
   getPaste: async (pasteId) => {
     set({ isLoading: true });
     try {
@@ -61,5 +78,5 @@ export const usePasteStore = create((set) => ({
       set({ isLoading: false });
       throw err;
     }
-  }
+  },
 }));

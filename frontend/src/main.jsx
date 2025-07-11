@@ -72,8 +72,12 @@ const router = createBrowserRouter(
       <Route
         path='/paste/:pasteId'
         element={
-            <ViewPaste />
+          <ViewPaste />
         }
+      />
+      <Route
+        path='*'
+        element={<Navigate to='/' />}
       />
     </Route>
   )

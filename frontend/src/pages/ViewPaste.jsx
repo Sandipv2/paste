@@ -46,12 +46,12 @@ function ViewPaste() {
 
     return (
         <div className='min-h-screen px-5 md:px-0 bg-gradient-to-br from-black to-cyan-800 flex justify-center items-center'>
-            <div className='border border-slate-500 text-white min-w-96 rounded-md p-4'>
-                <h1 className='font-bold text-3xl'>{paste.title}</h1>
+            <div className='border border-slate-500 text-white md:min-w-96 rounded-md p-4'>
+                <h1 className='font-bold text-xl md:text-3xl'>{paste.title}</h1>
                 <textarea
                     ref={textAreaRef}
                     value={paste.content}
-                    className="mt-4 outline-none w-full h-auto resize-none"
+                    className="mt-4 md:text-lg outline-none w-full h-auto resize-none"
                     readOnly
                 />
                 <p className='mt-4 text-slate-400'>

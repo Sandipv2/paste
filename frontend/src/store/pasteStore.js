@@ -9,15 +9,17 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL + "/api/pastes";
 export const usePasteStore = create((set) => ({
   pastes: [],
   isLoading: false,
+  isCreating: false,
+  isDeleting: false,
 
   create: async (title, content) => {
-    set({ isLoading: true });
+    set({ isCreating: true });
     try {
       const {data} = await axios.post(`${backendUrl}/`, { title, content });
-      set({ isLoading: false });
+      set({ isCreating: false });
       return data;
     } catch (err) {
-      set({ isLoading: false });
+      set({ isCreating: false });
       toast.error(err.response.data.message || err.message);
       throw err;
     }
@@ -37,13 +39,13 @@ export const usePasteStore = create((set) => ({
   },
 
   remove: async (pasteId) => {
-    set({ isLoading: true });
+    set({ isDeleting: true });
     try {
       const { data } = await axios.delete(`${backendUrl}/${pasteId}`);
-      set({ isLoading: false });
+      set({ isDeleting: false });
       return data;
     } catch (err) {
-      set({ isLoading: false });
+      set({ isDeleting: false });
       toast.error(err.response.data.message || err.message);
       throw err;
     }

@@ -2,8 +2,8 @@ import { FaPlus, FaRegCopy, FaEdit } from "react-icons/fa";
 import { GrView } from "react-icons/gr";
 import { MdDeleteOutline } from "react-icons/md";
 import { FiShare2 } from "react-icons/fi";
+import { PiSpinner } from "react-icons/pi";
 
-import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import toast from 'react-hot-toast';
@@ -11,24 +11,27 @@ import toast from 'react-hot-toast';
 import { usePasteStore } from "../store/pasteStore";
 
 function Dashboard() {
-  const {
-    register,
-    handleSubmit,
-    reset
-  } = useForm();
 
   const [search, setSearch] = useState('');
-  const { create, getAllPastes, pastes, remove, isLoading } = usePasteStore();
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [pasteId, setPasteId] = useState('');
+  const [deleting, setDeleting] = useState(false);
 
-  async function onSubmit(e) {
+  const { create, getAllPastes, pastes, remove, isLoading, isCreating, isDeleting } = usePasteStore();
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
     try {
-      await create(e.title, e.content);
+      await create(title, content);
       getAllPastes();
     } catch (err) {
       console.log(err.response.data.message || err.message)
     }
 
-    reset();
+    setTitle('');
+    setContent('');
   }
 
   useEffect(() => {
@@ -36,7 +39,9 @@ function Dashboard() {
   }, [])
 
   async function handlePasteDelete(pasteId) {
+    setDeleting(!deleting);
     await remove(pasteId);
+    setDeleting(!deleting);
     getAllPastes();
   }
 
@@ -53,31 +58,41 @@ function Dashboard() {
   return (
     <div className='min-h-screen px-5 md:px-0 bg-gradient-to-br from-black to-cyan-800 flex justify-center text-white'>
       <div className='my-25 min-w-full md:min-w-1/2 md:max-w-1/2'>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit}>
           <div className="flex border border-slate-500 justify-between rounded-md bg-black overflow-hidden">
             <input
               type="text"
               className="outline-none p-2 w-full"
               placeholder="Title"
-              {...register('title', { required: true })}
+              name="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
             />
             <button
               type='submit'
-              disabled={isLoading}
+              disabled={isCreating}
               className="bg-cyan-500 text-center px-2 content-center cursor-pointer duration-200 hover:bg-cyan-600 group"
             >
-              <FaPlus size={25} className="group-active:scale-90" />
+              {isCreating ? <PiSpinner size={25} className="animate-spin" /> : <FaPlus size={25} className="group-active:scale-90" />}
             </button>
           </div>
 
-          <input className="hidden" {...register('pasteId')} />
+          <input
+            className="hidden"
+            name="pasteId"
+            value={pasteId}
+            onChange={(e) => setPasteId(e.target.value)}
+          />
 
           <div className="bg-black border border-slate-500 rounded-md p-2 mt-3">
             <textarea
               className="w-full outline-none"
               placeholder="Description"
               rows={10}
-              {...register('content')}
+              name="content"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
             />
           </div>
         </form>
@@ -138,7 +153,7 @@ function Dashboard() {
                         </button>
 
                         <button
-                          disabled={isLoading}
+                          disabled={isDeleting}
                           onClick={() => handlePasteDelete(item._id)}
                           className="cursor-pointer hover:text-cyan-400 transition-colors"
                         >

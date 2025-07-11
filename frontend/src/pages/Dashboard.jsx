@@ -64,9 +64,9 @@ function Dashboard() {
             <button
               type='submit'
               disabled={isLoading}
-              className="bg-cyan-500 text-center px-2 content-center cursor-pointer"
+              className="bg-cyan-500 text-center px-2 content-center cursor-pointer duration-200 hover:bg-cyan-600 group"
             >
-              <FaPlus size={25} />
+              <FaPlus size={25} className="group-active:scale-90" />
             </button>
           </div>
 

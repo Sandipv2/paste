@@ -1,5 +1,5 @@
 import { FaArrowRight } from "react-icons/fa";
-import { Link, useNavigate, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
 import { useEffect, useState } from "react";
 
@@ -18,8 +18,6 @@ function Navbar() {
             console.log(error.message)
         });
     }
-
-    const navigate = useNavigate();
 
     return (
         <nav className="bg-black text-white flex justify-between px-7 md:px-0 md:justify-around items-center py-2 fixed w-full border-b-1 border-slate-600">
@@ -48,15 +46,13 @@ function Navbar() {
                                     Dashboard
                                 </NavLink>
                             </li>
-                            <li className="hover:bg-cyan-600 duration-300 p- cursor-pointer py-2 px-3">
-                                <NavLink to='/logout' className={({ isActive }) => `
-                                            ${isActive ? 'bg-cyan-600' : ''} p-1 rounded
-                                        `}>
+                            <li onClick={handleLogout} className="hover:bg-cyan-600 duration-300 p- cursor-pointer py-2 px-3">
+                                <NavLink className={`p-1`}>
                                     Logout
                                 </NavLink>
                             </li>
                             <li className="hover:bg-red-300 duration-300 p- cursor-pointer py-2 px-3 text-red-500">
-                                <NavLink to='/logout' className={({ isActive }) => `
+                                <NavLink to='/delete-account' className={({ isActive }) => `
                                             ${isActive ? 'bg-red-300' : ''} p-1 rounded
                                         `}>
                                     Delete Account

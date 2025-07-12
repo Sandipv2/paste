@@ -1,9 +1,8 @@
 import { useAuthStore } from "../store/authStore";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function DeleteAccount() {
     const { isLoading, deleteAccount, logout } = useAuthStore();
-    const navigate = useNavigate();
 
     async function handleDelete() {
         try {

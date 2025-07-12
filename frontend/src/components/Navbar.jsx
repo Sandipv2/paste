@@ -41,19 +41,19 @@ function Navbar() {
                             </li>
                             <li className="hover:bg-cyan-600 duration-300 p- cursor-pointer py-2 px-3">
                                 <NavLink to='/dashboard' className={({ isActive }) => `
-                                    ${isActive ? 'bg-cyan-600' : ''} p-1 rounded
+                                    ${isActive ? 'bg-cyan-600' : ''} p-1 rounded block
                                     `}>
                                     Dashboard
                                 </NavLink>
                             </li>
                             <li onClick={handleLogout} className="hover:bg-cyan-600 duration-300 p- cursor-pointer py-2 px-3">
-                                <NavLink className={`p-1`}>
+                                <NavLink className={`p-1 block`}>
                                     Logout
                                 </NavLink>
                             </li>
                             <li className="hover:bg-red-300 duration-300 p- cursor-pointer py-2 px-3 text-red-500">
                                 <NavLink to='/delete-account' className={({ isActive }) => `
-                                            ${isActive ? 'bg-red-300' : ''} p-1 rounded
+                                            ${isActive ? 'bg-red-300' : ''} p-1 rounded block
                                         `}>
                                     Delete Account
                                 </NavLink>

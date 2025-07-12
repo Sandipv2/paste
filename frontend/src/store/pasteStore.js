@@ -4,8 +4,11 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL + "/api/pastes";
-
+const backendUrl =
+  import.meta.env.VITE_NODE_ENV === 'development'
+    ? 'http://localhost:3000/api/pastes'
+    : '/api/pastes'; 
+    
 export const usePasteStore = create((set) => ({
   pastes: [],
   isLoading: false,

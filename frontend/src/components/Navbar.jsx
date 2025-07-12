@@ -33,8 +33,8 @@ function Navbar() {
                     <div onClick={() => setIsProfileClicked(!isProfileClicked)} className="relative w-10 h-10 bg-cyan-500 rounded-full text-center content-center">
                         <p className="font-bold text-xl text-black cursor-pointer">{user.name[0].toUpperCase()}</p>
 
-                        <ul className={`absolute border top-12 right-0 text-left bg-cyan-300 text-black rounded-md overflow-hidden font-bold ${isProfileClicked ? 'block' : 'hidden'}`}>
-                            <li onClick={handleLogout} className="hover:bg-slate-400 p-1 cursor-pointer border-b">Logout</li>
+                        <ul className={`duration-300 absolute border border-b-slate-600 top-12 right-0 text-left bg-cyan-300 text-black rounded-md overflow-hidden font-bold ${isProfileClicked ? 'block' : 'hidden'}`}>
+                            <li onClick={handleLogout} className="hover:bg-slate-400 p-1 cursor-pointer">Logout</li>
                             <li onClick={() => navigate('/dashboard')} className="hover:bg-slate-400 p-1 cursor-pointer">Dashboard</li>
                         </ul>
                     </div>

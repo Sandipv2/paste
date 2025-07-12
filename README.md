@@ -4,6 +4,13 @@ Paste is a full-stack web app for secure note and code snippet sharing.
 
 ---
 
+### Site is live [here 🚀]('')
+Use following credentials for testing:
+   - Email: guest@test.com
+   - Pass: test
+
+---
+
 ## ✨ Features
 
 - 🔐 **User Authentication:** JWT-based login, registration, and logout.

@@ -62,6 +62,7 @@ Use following credentials for testing:
      SENDER_EMAIL=your_email
      JWT_SECRET=your_jwt_secret
      NODE_ENV=development
+     FRONTEND_URL=http://localhost:5173
      ```
 
    - Create a `.env` file in the frontend directory and add:

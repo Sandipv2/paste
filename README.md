@@ -1,12 +1,131 @@
-# React + Vite
+# 📋 Paste
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Paste is a full-stack web app for secure note and code snippet sharing.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## Expanding the ESLint configuration
+- 🔐 **User Authentication:** JWT-based login, registration, and logout.
+- 📧 **Email Verification:** OTP-based verification via Nodemailer & Brevo SMTP.
+- 🔑 **Password Reset:** Secure password reset links sent to your email.
+- 📝 **Paste Management:** Create, view, update, and delete your own pastes.
+- 📱 **Responsive UI:** Built with Tailwind CSS for a sleek, modern look.
+- 🛡️ **Protected Routes:** Only authenticated & verified users access dashboard and paste features.
+- ⚡ **State Management:** Zustand for fast, efficient frontend state.
+- 🛡️ **Security:** Passwords hashed with bcrypt, secure cookies, and environment variables.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tech Stack
+
+### 🔹 Frontend
+- **React.js 19**
+- **Tailwind CSS**
+- **Zustand** – Global state management
+- **React Router DOM** – Routing
+- **React Hook Form** – Form handling and validation
+- **React Icons** – Icon library
+- **React Hot Toast** – Notifications
+
+### 🔹 Backend
+- **Node.js + Express.js**
+- **MongoDB + Mongoose**
+- **JWT & Bcrypt** – Auth and password security
+- **Nodemailer + Brevo SMTP** – Mailing & verification
+
+---
+
+## ⚡ Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/paste.git
+   cd paste
+   ```
+
+2. **Setup environment variables:**
+   - Create a `.env` file in the root directory and add:
+     ```
+     MONGODB_URL=your_mongodb_url
+     SMTP_SERVER=smtp-relay.brevo.com
+     SMTP_USER=your_brevo_email
+     SMTP_PASS=your_brevo_password
+     SMTP_PORT=587
+     SENDER_EMAIL=your_email
+     JWT_SECRET=your_jwt_secret
+     NODE_ENV=development
+     FRONTEND_URL=http://localhost:5173
+     ```
+
+    - Create a `.env` file in the frontend directory and add:
+     ```
+        VITE_BACKEND_URL=http://localhost:3000
+        VITE_FRONTEND_URL=http://localhost:5173
+     ```
+
+3. **Install dependencies:**
+   ```bash
+   npm install
+   cd ../frontend
+   npm install
+   ```
+
+4. **Run the backend:**
+   ```bash
+   npm run dev
+   ```
+
+5. **Run the frontend:**
+   ```bash
+   cd ../frontend
+   npm run dev
+   ```
+
+---
+
+## 📁 Folder Structure
+
+```
+paste/
+├── backend/
+│   ├── config/
+│   ├── controllers/
+│   ├── emails/
+│   ├── middlewares/
+│   ├── models/
+│   ├── routes/
+│   ├── utils/
+│   └── index.js
+|
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── store/
+│   │   └── index.css
+│   │   └── Layout.jsx
+│   │   └── main.jsx
+│   └── vite.config.js
+│   └── .env
+│   └── index.html
+│   └── package-lock.json
+│   └── package.json
+|
+├── .env
+└── .gitignore
+├── package-lock.json 
+├── package.json               
+└── README.md
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome!  
+Feel free to open issues or submit pull requests.
+
+---
+
+**Made with ❤️ by Sandip Varma**

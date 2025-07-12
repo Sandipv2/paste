@@ -60,8 +60,8 @@ Paste is a full-stack web app for secure note and code snippet sharing.
 
    - Create a `.env` file in the frontend directory and add:
      ```
-      VITE_BACKEND_URL=http://localhost:3000
-      VITE_FRONTEND_URL=http://localhost:5173
+     VITE_BACKEND_URL=http://localhost:3000
+     VITE_FRONTEND_URL=http://localhost:5173
      ```
 
 3. **Install dependencies:**

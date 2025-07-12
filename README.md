@@ -55,34 +55,22 @@ Paste is a full-stack web app for secure note and code snippet sharing.
      SENDER_EMAIL=your_email
      JWT_SECRET=your_jwt_secret
      NODE_ENV=development
-     FRONTEND_URL=http://localhost:5173
      ```
 
    - Create a `.env` file in the frontend directory and add:
      ```
-     VITE_BACKEND_URL=http://localhost:3000
      VITE_FRONTEND_URL=http://localhost:5173
      ```
 
 3. **Install dependencies:**
    ```bash
-   npm install
-   cd ../frontend
-   npm install
+   npm run build
    ```
 
-4. **Run the backend:**
+4. **Start the server:**
    ```bash
-   npm run dev
+   npm run start
    ```
-
-5. **Run the frontend:**
-   ```bash
-   cd ../frontend
-   npm run dev
-   ```
-
----
 
 ## 📁 Folder Structure
 

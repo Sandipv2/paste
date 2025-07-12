@@ -5,7 +5,7 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const backendUrl =
-  import.meta.env.VITE_NODE_ENV === 'development'
+  import.meta.env.MODE === 'development'
     ? 'http://localhost:3000/api/pastes'
     : '/api/pastes'; 
     

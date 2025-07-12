@@ -1,5 +1,5 @@
 import { FaArrowRight } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
 import { useEffect, useState } from "react";
 
@@ -33,9 +33,35 @@ function Navbar() {
                     <div onClick={() => setIsProfileClicked(!isProfileClicked)} className="relative w-10 h-10 bg-cyan-500 rounded-full text-center content-center">
                         <p className="font-bold text-xl text-black cursor-pointer">{user.name[0].toUpperCase()}</p>
 
-                        <ul className={`duration-300 absolute border border-b-slate-600 top-12 right-0 text-left bg-cyan-300 text-black rounded-md overflow-hidden font-bold ${isProfileClicked ? 'block' : 'hidden'}`}>
-                            <li onClick={handleLogout} className="hover:bg-slate-400 p-1 cursor-pointer">Logout</li>
-                            <li onClick={() => navigate('/dashboard')} className="hover:bg-slate-400 p-1 cursor-pointer">Dashboard</li>
+                        <ul className={`absolute border border-slate-600 top-12 right-0 text-left bg-black text-white rounded-md overflow-hidden w-45 ${isProfileClicked ? 'block' : 'hidden'}`}>
+                            <li className="hover:bg-cyan-600 duration-300 p- cursor-pointer py-2 px-3">
+                                <NavLink to='/' className={({ isActive }) => `
+                                        ${isActive ? 'bg-cyan-600' : ''} p-1 rounded block
+                                    `}>
+                                    Home
+                                </NavLink>
+                            </li>
+                            <li className="hover:bg-cyan-600 duration-300 p- cursor-pointer py-2 px-3">
+                                <NavLink to='/dashboard' className={({ isActive }) => `
+                                    ${isActive ? 'bg-cyan-600' : ''} p-1 rounded
+                                    `}>
+                                    Dashboard
+                                </NavLink>
+                            </li>
+                            <li className="hover:bg-cyan-600 duration-300 p- cursor-pointer py-2 px-3">
+                                <NavLink to='/logout' className={({ isActive }) => `
+                                            ${isActive ? 'bg-cyan-600' : ''} p-1 rounded
+                                        `}>
+                                    Logout
+                                </NavLink>
+                            </li>
+                            <li className="hover:bg-red-300 duration-300 p- cursor-pointer py-2 px-3 text-red-500">
+                                <NavLink to='/logout' className={({ isActive }) => `
+                                            ${isActive ? 'bg-red-300' : ''} p-1 rounded
+                                        `}>
+                                    Delete Account
+                                </NavLink>
+                            </li>
                         </ul>
                     </div>
                     :

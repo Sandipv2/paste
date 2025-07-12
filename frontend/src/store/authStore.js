@@ -139,4 +139,18 @@ export const useAuthStore = create((set) => ({
       return null;
     }
   },
+
+  deleteAccount: async () => {
+    set({ isLoading: true });
+    try {
+      const { data } = await axios.delete(`${backendUrl}/delete-account`);
+      set({ isLoading: false });
+      toast.success("Account deleted!");
+      return data;
+    } catch (err) {
+      set({ isLoading: false });
+      toast.error(err.response?.data?.message || err.message);
+      throw err;
+    }
+  },
 }));

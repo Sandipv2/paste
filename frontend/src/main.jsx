@@ -16,6 +16,7 @@ import { Toaster } from 'react-hot-toast'
 
 import RedirectLoggedInUser from './components/RedirectLoggedInUser'
 import ProtectedRoute from './components/ProtectedRoute'
+import DeleteAccount from './pages/DeleteAccount'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -66,6 +67,14 @@ const router = createBrowserRouter(
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path='/delete-account'
+        element={
+          <ProtectedRoute>
+            <DeleteAccount />
           </ProtectedRoute>
         }
       />

@@ -1,7 +1,9 @@
 import { User } from "../models/user.model.js";
+import { Paste } from "../models/paste.model.js";
 import bcrypt from "bcryptjs";
 import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js";
 import {
+  sendAccountDeletedMail,
   sendPasswordResetMail,
   sendPasswordResetSuccessMail,
   sendVerificationMail,
@@ -241,6 +243,39 @@ export const checkAuth = async (req, res) => {
     }
 
     res.status(200).json({ success: true, user });
+  } catch (err) {
+    res.status(400).json({ success: false, message: err.message });
+  }
+};
+
+export const deleteAccount = async (req, res) => {
+  try {
+    const userId = req.userId;
+    if (userId === "686f4e5554000ec41519519a") {
+      return res.status(400).json({
+        success: false,
+        message: "Guest cannot be deleted",
+      });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found while deleting account",
+      });
+    }
+
+    await Paste.deleteMany({ user: userId });
+    await User.findByIdAndDelete(userId);
+
+    await sendAccountDeletedMail(user.name, user.email);
+
+    res.clearCookie("token");
+
+    res
+      .status(200)
+      .json({ success: true, message: "Account deleted successfully" });
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });
   }

@@ -4,6 +4,7 @@ import {
   welcomeTemplate,
   passwordResetTemplate,
   resetPasswordSuccessTemplate,
+  accountDeletedTemplate,
 } from "./emailTemplates.js";
 
 export const sendVerificationMail = async (name, email, otp) => {
@@ -67,7 +68,23 @@ export const sendPasswordResetSuccessMail = async (name, email) => {
         .replace("{year}", new Date().getFullYear()),
     });
   } catch (err) {
-    console.error(`Erroor:sending pass reset mail:  `, err);
-    throw new Error("Erroor:sending pass reset mail:  ", err.message);
+    console.error(`Error:sending pass reset success mail:  `, err);
+    throw err;
   }
 };
+
+export const sendAccountDeletedMail = async (name, email) => {
+  try {
+    await transporter.sendMail({
+      from: process.env.SENDER_EMAIL,
+      to: email,
+      subject: "Accoutn deleted successfully!",
+      html: accountDeletedTemplate
+        .replace("{name}",name)
+        .replace("{year}", new Date().getFullYear()),
+    });
+  } catch(err) {
+    console.log(`Error:sending pass reset mail:  `, err);
+    throw err;
+  }
+}

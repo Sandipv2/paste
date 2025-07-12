@@ -243,3 +243,37 @@ export const resetPasswordSuccessTemplate = `<!DOCTYPE html>
 </body>
 </html>
 `;
+
+export const accountDeletedTemplate = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account Deleted</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; margin: 0;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+    <tr>
+      <td style="background-color: #00b8db; padding: 20px; text-align: center; color: white;">
+        <h1 style="margin: 0;">PASTE</h1>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding: 30px;">
+        <h2 style="color: #333;">Your Account Has Been Deleted</h2>
+        <p style="color: #555;">
+          {name}, <br><br>
+          This is a confirmation that your account has been successfully deleted from our system. We're sorry to see you go!
+        </p>
+        <p style="color: #555;">Wishing you all the best,<br><strong>The PASTE</strong></p>
+      </td>
+    </tr>
+    <tr>
+      <td style="background-color: #f1f1f1; text-align: center; padding: 15px; font-size: 12px; color: #777;">
+        &copy; {year} PASTE. All rights reserved.
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+`;

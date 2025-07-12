@@ -4,7 +4,7 @@ Paste is a full-stack web app for secure note and code snippet sharing.
 
 ---
 
-### Site is live [here 🚀]('')
+### Site is live [here 🚀]('https://paste-7smj.onrender.com/')
 Use following credentials for testing:
    - Email: guest@test.com
    - Pass: test

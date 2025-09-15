@@ -1,3 +1,4 @@
+import { FaRegCopy } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { usePasteStore } from "../store/pasteStore";
 import { useEffect, useState, useRef, useLayoutEffect } from "react";
@@ -43,11 +44,19 @@ function ViewPaste() {
         );
     }
 
+    function handleCopy(text) {
+        navigator.clipboard.writeText(text);
+        toast.success('Copied!');
+    }
+
 
     return (
         <div className='min-h-screen px-5 md:px-0 bg-gradient-to-br from-black to-cyan-800 flex justify-center items-center'>
             <div className='border border-slate-500 text-white w-[90vw] my-[5rem] md:min-w-96 rounded-md p-4'>
-                <h1 className='font-bold text-xl md:text-3xl'>{paste.title}</h1>
+                <div className='flex flex-between'>
+                    <h1 className='font-bold text-xl md:text-3xl'>{paste.title}</h1>
+                    <FaRegCopy size={18} onClick={() => handleCopy(paste.content)}/>
+                </div>
                 <textarea
                     ref={textAreaRef}
                     value={paste.content}

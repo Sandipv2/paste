@@ -48,7 +48,6 @@ function ViewPaste() {
     function handleCopy(text) {
         navigator.clipboard.writeText(text);
         toast.success('Copied!');
-        toast.success('Copied!');
     }
 
 

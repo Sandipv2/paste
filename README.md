@@ -4,42 +4,81 @@ Paste is a full-stack web app for secure note and code snippet sharing.
 
 ---
 
-### Site is live [here 🚀](https://paste-7smj.onrender.com/)
-Use following credentials for testing:
-   - Email: guest@test.com
-   - Pass: test
+### 🌐 Site is live [here 🚀](https://paste-7smj.onrender.com/)
+
+Use the following credentials for testing:
+- **Email:** guest@test.com  
+- **Password:** test
 
 ---
 
 ## ✨ Features
 
-- 🔐 **User Authentication:** JWT-based login, registration, and logout.
-- 📧 **Email Verification:** OTP-based verification via Nodemailer & Brevo SMTP.
-- 🔑 **Password Reset:** Secure password reset links sent to your email.
-- 📝 **Paste Management:** Create, view, update, and delete your own pastes.
-- 📱 **Responsive UI:** Built with Tailwind CSS for a sleek, modern look.
-- 🛡️ **Protected Routes:** Only authenticated & verified users access dashboard and paste features.
-- ⚡ **State Management:** Zustand for fast, efficient frontend state.
-- 🛡️ **Security:** Passwords hashed with bcrypt, secure cookies, and environment variables.
+- 🔐 **User Authentication:** JWT-based registration, login, and logout
+- 📧 **Email Verification:** OTP-based verification using Nodemailer & Brevo SMTP
+- 🔑 **Password Reset:** Secure password reset via email token
+- 📝 **Paste Management:** Create, view, update, and delete personal pastes
+- 🛡️ **Protected Routes:** Only authenticated & verified users can access private resources
+- ⚡ **State Management:** Zustand for efficient global state handling
+- 📱 **Responsive UI:** Built with Tailwind CSS
+- 🛡️ **Security:** Bcrypt password hashing, HTTP-only cookies, environment variables
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### 🔹 Frontend
-- **React.js 19**
-- **Tailwind CSS**
-- **Zustand** – Global state management
-- **React Router DOM** – Routing
-- **React Hook Form** – Form handling and validation
-- **React Icons** – Icon library
-- **React Hot Toast** – Notifications
+- React.js 19
+- Tailwind CSS
+- Zustand
+- React Router DOM
+- React Hook Form
+- React Icons
+- React Hot Toast
 
 ### 🔹 Backend
-- **Node.js + Express.js**
-- **MongoDB + Mongoose**
-- **JWT & Bcrypt** – Auth and password security
-- **Nodemailer + Brevo SMTP** – Mailing & verification
+- Node.js
+- Express.js
+- MongoDB + Mongoose
+- JWT Authentication
+- Bcrypt
+- Nodemailer + Brevo SMTP
+
+---
+
+## 📡 API Documentation
+
+### Base URL
+https://paste-7smj.onrender.com/api
+
+Local:
+http://localhost:5000/api
+
+
+### 🔐 Auth Routes (`/api/auth`)
+
+| Method | Endpoint | Description
+|------|---------|-------------|
+| POST | `/register` | Register a new user
+| POST | `/verify-email` | Verify email using OTP
+| POST | `/login` | Login user
+| POST | `/logout` | Logout user
+| POST | `/forgot-password` | Send password reset link
+| POST | `/reset-password/:token` | Reset password 
+| GET | `/check-auth` | Check authentication status 
+| DELETE | `/delete-account` | Delete user account
+
+---
+
+### 📝 Paste Routes (`/api/pastes`)
+
+| Method | Endpoint | Description
+|------|---------|-------------|
+| GET | `/:pasteId` | Get a single paste (public)
+| POST | `/` | Create a new paste
+| GET | `/` | Get all user pastes
+| PUT | `/:pasteId` | Update a paste
+| DELETE | `/:pasteId` | Delete a paste
 
 ---
 
@@ -80,7 +119,7 @@ Use following credentials for testing:
    npm run start
    ```
 
-## 📁 Folder Structure
+   ## 📁 Folder Structure
 
 ```
 paste/

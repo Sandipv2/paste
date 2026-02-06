@@ -1,4 +1,5 @@
 import { transporter } from "../config/nodemailer.js";
+import { brevoClient } from "../config/brevo.js";
 import {
   verificationTemplate,
   welcomeTemplate,
@@ -9,82 +10,88 @@ import {
 
 export const sendVerificationMail = async (name, email, otp) => {
   try {
-    await transporter.sendMail({
-      from: process.env.SENDER_EMAIL,
-      to: email,
+    await brevoClient.post("/smtp/email", {
+      sender: {
+        email: process.env.SENDER_EMAIL,
+        name: "PASTE",
+      },
+      to: [{ email }],
       subject: "Email verification OTP - PASTE",
-      html: verificationTemplate
+      htmlContent: verificationTemplate
         .replace("{name}", name)
         .replace("{otp}", otp)
         .replace("{year}", new Date().getFullYear()),
     });
   } catch (err) {
-    console.error(`Error sending verification`, err);
-    throw new Error("Error sending verification: ", err.message);
+    console.error(
+      "Brevo verification mail error:",
+      err.response?.data || err.message
+    );
+    throw new Error("Failed to send verification mail");
   }
 };
 
 export const sendWelcomeMail = async (email, name) => {
   try {
-    await transporter.sendMail({
-      from: process.env.SENDER_EMAIL,
-      to: email,
-      subject: "Welcome To PASTE!",
-      html: welcomeTemplate
+    await brevoClient.post("/smtp/email", {
+      sender: { email: process.env.SENDER_EMAIL, name: "PASTE" },
+      to: [{ email }],
+      subject: "Welcome to PASTE!",
+      htmlContent: welcomeTemplate
         .replace("{name}", name)
         .replace("{year}", new Date().getFullYear()),
     });
   } catch (err) {
-    console.error(`Erroor:sending welcome mail:  `, err);
-    throw new Error("Erroor:sending welcome mail:  ", err.message);
+    console.error("Brevo welcome mail error:", err.message);
+    throw new Error("Failed to send welcome mail");
   }
 };
 
 export const sendPasswordResetMail = async (name, email, resetUrl) => {
   try {
-    await transporter.sendMail({
-      from: process.env.SENDER_EMAIL,
-      to: email,
+    await brevoClient.post("/smtp/email", {
+      sender: { email: process.env.SENDER_EMAIL, name: "PASTE" },
+      to: [{ email }],
       subject: "Password reset mail - PASTE",
-      html: passwordResetTemplate
+      htmlContent: passwordResetTemplate
         .replace("{name}", name)
         .replace("{resetLink}", resetUrl)
         .replace("{year}", new Date().getFullYear()),
     });
   } catch (err) {
-    console.error(`Erroor:sending pass reset mail:  `, err);
-    throw new Error("Erroor:sending pass reset mail:  ", err.message);
+    console.error("Brevo password reset error:", err.message);
+    throw new Error("Failed to send password reset mail");
   }
 };
 
 export const sendPasswordResetSuccessMail = async (name, email) => {
   try {
-    await transporter.sendMail({
-      from: process.env.SENDER_EMAIL,
-      to: email,
+    await brevoClient.post("/smtp/email", {
+      sender: { email: process.env.SENDER_EMAIL, name: "PASTE" },
+      to: [{ email }],
       subject: "Password reset successfully",
-      html: resetPasswordSuccessTemplate
+      htmlContent: resetPasswordSuccessTemplate
         .replace("{name}", name)
         .replace("{year}", new Date().getFullYear()),
     });
   } catch (err) {
-    console.error(`Error:sending pass reset success mail:  `, err);
+    console.error("Brevo reset success error:", err.message);
     throw err;
   }
 };
 
 export const sendAccountDeletedMail = async (name, email) => {
   try {
-    await transporter.sendMail({
-      from: process.env.SENDER_EMAIL,
-      to: email,
-      subject: "Accoutn deleted successfully!",
-      html: accountDeletedTemplate
-        .replace("{name}",name)
+    await brevoClient.post("/smtp/email", {
+      sender: { email: process.env.SENDER_EMAIL, name: "PASTE" },
+      to: [{ email }],
+      subject: "Account deleted successfully!",
+      htmlContent: accountDeletedTemplate
+        .replace("{name}", name)
         .replace("{year}", new Date().getFullYear()),
     });
-  } catch(err) {
-    console.log(`Error:sending pass reset mail:  `, err);
+  } catch (err) {
+    console.error("Brevo account deleted error:", err.message);
     throw err;
   }
-}
+};
